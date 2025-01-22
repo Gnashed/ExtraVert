@@ -118,50 +118,51 @@ void delistPlant()
 // MENU
 void plantMenu()
 {
-    Console.WriteLine();
-    Console.WriteLine("Please choose one of the following options: ");
-    Console.WriteLine("a: Display all plants.");
-    Console.WriteLine("b: Post a plant to be adopted.");
-    Console.WriteLine("c: Adopt a plant today!");
-    Console.WriteLine("d: De-list a plant.");
-    Console.WriteLine("e: Showcase Plant of the Day.");
-    Console.WriteLine("exit: Exit the program.");
-    string response = Console.ReadLine().Trim();
-
-    // PROCESS MENU RESPONSE
-    switch (response?.ToLower())
+    while (true)
     {
-        case "a":
-            Console.WriteLine("Showing all plants...");
-            displayPlants();
-            plantMenu();
-            break;
-        case "b":
-            Console.WriteLine("Post a plant to be adopted...");
-            postAPlant();
-            plantMenu();
-            break;
-        case "c":
-            Console.WriteLine("Which plant do you want to adopt?");
-            adoptAPlant();
-            break;
-        case "d":
-            delistPlant();
-            break;
-        case "e":
-            plantOfTheDay();
-            plantMenu();
-            break;
-        case "exit":
-            Console.WriteLine("Terminating program...");
-            break;
-        default:
-            Console.WriteLine("Invalid response. Please try again. ");
-            Console.WriteLine();
-            Console.Clear();
-            plantMenu();
-            break;
-    };
+        Console.WriteLine();
+        Console.WriteLine("Please choose one of the following options: ");
+        Console.WriteLine("a: Display all plants.");
+        Console.WriteLine("b: Post a plant to be adopted.");
+        Console.WriteLine("c: Adopt a plant today!");
+        Console.WriteLine("d: De-list a plant.");
+        Console.WriteLine("e: Showcase Plant of the Day.");
+        Console.WriteLine("exit: Exit the program.");
+        string response = Console.ReadLine().Trim();
+
+        // PROCESS MENU RESPONSE
+        switch (response?.ToLower().Trim())
+        {
+            case "a":
+                Console.Clear();
+                Console.WriteLine("Showing all plants...");
+                displayPlants();
+                continue;
+            case "b":
+                Console.WriteLine("Post a plant to be adopted...");
+                postAPlant();
+                continue;
+            case "c":
+                Console.WriteLine("Which plant do you want to adopt?");
+                adoptAPlant();
+                break;
+            case "d":
+                delistPlant();
+                break;
+            case "e":
+                plantOfTheDay();
+                continue;
+            case "exit":
+                Console.WriteLine("Terminating program...");
+                break;
+            default:
+                Console.WriteLine("Invalid response. Please try again. ");
+                Console.WriteLine();
+                Console.Clear();
+                continue;
+        }
+        break;
+    }
 }
 
 // STARTUP GREETING AND PROMPT USER TO MAKE A SELECTION IN THE MENU.
