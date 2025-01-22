@@ -99,17 +99,30 @@ void adoptAPlant()
 
 void delistPlant()
 {
-    Console.WriteLine("Please enter the number you want to de-list: ");
-    int counter = 0;
-    foreach (Plant plant in plants)
+    Plant chosenPlant = null;
+    while (chosenPlant == null)
     {
-        Console.WriteLine($"{++counter}. {plant.Species}");
+        try
+        {
+            Console.WriteLine("Please enter the number you want to de-list: ");
+            int counter = 0;
+            foreach (Plant plant in plants)
+            {
+                Console.WriteLine($"{++counter}. {plant.Species}");
+            }
+            int response = Convert.ToInt32(Console.ReadLine());
+            chosenPlant = plants[response - 1];
+            plants.Remove(plants[response - 1]);
+            Console.WriteLine("Removed the plant. Here is the updated list:");
+            displayPlants();
+            plantMenu();
+        }
+        catch
+        {
+            Console.WriteLine("Invalid selection. Please pick a number from the list.");
+            delistPlant();
+        }
     }
-    int response = Convert.ToInt32(Console.ReadLine());
-    plants.Remove(plants[response - 1]);
-    Console.WriteLine("Removed the plant. Here is the updated list:");
-    displayPlants();
-    plantMenu();
 }
 
 // MENU
