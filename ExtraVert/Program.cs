@@ -9,12 +9,26 @@ List<Plant> plants = new List<Plant>()
     new Plant("Cannabis",4,45.00M,"Detroit",48200,false)
 };
 
+// For Showcasing Plant of the Day
+void plantOfTheDay()
+{
+    Random randomIndex = new Random();
+    int randomInteger = randomIndex.Next(1, plants.Count);
+    
+    // Console.Write(plants[randomInteger].Species, " ");
+    // Console.Write($"Light needs: {plants[randomInteger].LightNeeds} ");
+    // Console.Write($"{plants[randomInteger].AskingPrice} ");
+    // Console.Write(plants[randomInteger].City, " ");
+    // Console.Write($" Zip code: {plants[randomInteger].ZipCode}");
+}
+
 void displayPlants()
 {
     int counter = 0;
     foreach (Plant plant in plants)
     { 
-        Console.WriteLine($"{++counter}. {plant.Species} in {plant.City} {(plant.isSold ? "was sold":"is available")} for ${plant.AskingPrice} dollars.");
+        Console.WriteLine($"{++counter}. {plant.Species} in {plant.City} {(plant.isSold ? "was sold":"is available")} " +
+                          $"for ${plant.AskingPrice} dollars.");
     }
 }
 
@@ -109,7 +123,8 @@ void plantMenu()
     Console.WriteLine("b: Post a plant to be adopted.");
     Console.WriteLine("c: Adopt a plant today!");
     Console.WriteLine("d: De-list a plant.");
-    Console.WriteLine("e: Exit the program.");
+    Console.WriteLine("e: Showcase Plant of the Day.");
+    Console.WriteLine("exit: Exit the program.");
     string response = Console.ReadLine().Trim();
 
     // PROCESS MENU RESPONSE
@@ -132,6 +147,9 @@ void plantMenu()
             delistPlant();
             break;
         case "e":
+            plantOfTheDay();
+            break;
+        case "exit":
             Console.WriteLine("Terminating program...");
             break;
         default:
