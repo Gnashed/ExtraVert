@@ -15,11 +15,9 @@ void plantOfTheDay()
     Random randomIndex = new Random();
     int randomInteger = randomIndex.Next(1, plants.Count);
     
-    // Console.Write(plants[randomInteger].Species, " ");
-    // Console.Write($"Light needs: {plants[randomInteger].LightNeeds} ");
-    // Console.Write($"{plants[randomInteger].AskingPrice} ");
-    // Console.Write(plants[randomInteger].City, " ");
-    // Console.Write($" Zip code: {plants[randomInteger].ZipCode}");
+    Console.WriteLine($"{plants[randomInteger].Species} in {plants[randomInteger].City} " +
+                      $"{(plants[randomInteger].isSold ? "was sold":"is available")} for " +
+                      $"${plants[randomInteger].AskingPrice} dollars.");
 }
 
 void displayPlants()
@@ -138,6 +136,7 @@ void plantMenu()
         case "b":
             Console.WriteLine("Post a plant to be adopted...");
             postAPlant();
+            plantMenu();
             break;
         case "c":
             Console.WriteLine("Which plant do you want to adopt?");
@@ -148,6 +147,7 @@ void plantMenu()
             break;
         case "e":
             plantOfTheDay();
+            plantMenu();
             break;
         case "exit":
             Console.WriteLine("Terminating program...");
