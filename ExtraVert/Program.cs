@@ -18,6 +18,29 @@ void displayPlants()
     }
 }
 
+// User needs to enter a species (string), lightNeeds (int), askingPrice (decimal), city (string),
+// zipCode (int)
+void postAPlant()
+{   
+    Console.WriteLine("Please fill out the plant details below.");
+    
+    Console.Write("What's the plant name?: ");
+    string? species = Console.ReadLine();
+    Console.Write("What's the plant's light needs? Scale 1 to 5 (5 highest, 1 lowest): ");
+    int lightNeeds = Convert.ToInt32(Console.ReadLine());
+    Console.Write("How much are you asking for? ");
+    decimal askingPrice = Convert.ToDecimal(Console.ReadLine());
+    Console.Write("What city are you located in? ");
+    string? city = Console.ReadLine();
+    Console.Write("What's the zip code? ");
+    int zipCode = Convert.ToInt32(Console.ReadLine());
+    
+    // Process the user's inputs
+    plants.Add(new Plant(species, lightNeeds, askingPrice, city, zipCode, false));
+    Console.WriteLine("Plant added to the list! Here is the updated records:");
+    displayPlants();
+}
+
 // MENU
 void plantMenu()
 {
@@ -40,6 +63,7 @@ void plantMenu()
             break;
         case "b":
             Console.WriteLine("Post a plant to be adopted...");
+            postAPlant();
             break;
         case "c":
             Console.WriteLine("Which plant do you want to adopt?");
