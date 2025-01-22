@@ -36,14 +36,43 @@ void postAPlant()
     
     Console.Write("What's the plant name?: ");
     string? species = Console.ReadLine();
-    Console.Write("What's the plant's light needs? Scale 1 to 5 (5 highest, 1 lowest): ");
-    int lightNeeds = Convert.ToInt32(Console.ReadLine());
-    Console.Write("How much are you asking for? ");
-    decimal askingPrice = Convert.ToDecimal(Console.ReadLine());
+    
+    int lightNeeds;
+    while (true)
+    {
+        Console.WriteLine("What's the plant's light needs? Scale 1 to 5 (5 highest, 1 lowest): ");
+        if (int.TryParse(Console.ReadLine(), out lightNeeds) && lightNeeds is >= 1 and <= 5)
+        {
+            break;
+        }
+        Console.WriteLine("Invalid input. Please try again with a number between 1 and 5.");
+    }
+
+    decimal askingPrice;
+    while (true)
+    {
+        Console.WriteLine("How much are you asking for? ");
+        if (decimal.TryParse(Console.ReadLine(), out askingPrice) && askingPrice is > 0)
+        {
+            break;
+        }
+        Console.WriteLine("Invalid input. Please try again by entering a dollar amount. Ex. 12.99: ");
+    }
+    
     Console.Write("What city are you located in? ");
     string? city = Console.ReadLine();
-    Console.Write("What's the zip code? ");
-    int zipCode = Convert.ToInt32(Console.ReadLine());
+
+    int zipCode;
+    while (true)
+    {
+        Console.Write("What's the zip code? ");
+        if (int.TryParse(Console.ReadLine(), out zipCode) && zipCode is > 9999 and < 99999)
+        {
+            break;
+        }
+        // Else ...
+        Console.WriteLine("Invalid input. Please enter a valid zip code. ");
+    }
     
     // Process the user's inputs
     plants.Add(new Plant(species, lightNeeds, askingPrice, city, zipCode, false));
