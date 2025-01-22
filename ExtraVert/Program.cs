@@ -10,7 +10,7 @@ List<Plant> plants = new List<Plant>()
 };
 
 // For Showcasing Plant of the Day
-void plantOfTheDay()
+void PlantOfTheDay()
 {
     Random randomIndex = new Random();
     int randomInteger = randomIndex.Next(1, plants.Count);
@@ -23,7 +23,7 @@ void plantOfTheDay()
                       $"${plants[randomInteger].AskingPrice} dollars.");
 }
 
-void displayPlants()
+void DisplayPlants()
 {
     int counter = 0;
     foreach (Plant plant in plants)
@@ -33,7 +33,7 @@ void displayPlants()
     }
 }
 
-void postAPlant()
+void PostAPlant()
 {   
     Console.WriteLine("Please fill out the plant details below.");
     
@@ -80,15 +80,15 @@ void postAPlant()
     // Process the user's inputs
     plants.Add(new Plant(species, lightNeeds, askingPrice, city, zipCode, false));
     Console.WriteLine("Plant added to the list! Here is the updated records:");
-    displayPlants();
+    DisplayPlants();
 }
 
 // When the user choose a plant, change its Sold property to be true.
-void adoptAPlant()
+void AdoptAPlant()
 {
     while (true)
     {
-        displayPlants();
+        DisplayPlants();
         Console.Write("Enter the number that corresponds to the plant you are wanting to adopt: ");
 
         try
@@ -110,10 +110,10 @@ void adoptAPlant()
             Console.WriteLine("Invalid input. Please try again.");
         }
     }
-    plantMenu();
+    PlantMenu();
 }
 
-void delistPlant()
+void DelistPlant()
 {
     while (true)
     {
@@ -136,7 +136,7 @@ void delistPlant()
             Plant chosenPlant = plants[response - 1];
             plants.Remove(chosenPlant);
             Console.WriteLine("Removed the plant. Here is the updated list:");
-            displayPlants();
+            DisplayPlants();
             break; // Without this the loop is infinite.
         }
         catch (FormatException)
@@ -144,11 +144,11 @@ void delistPlant()
             Console.WriteLine("Invalid selection. Please pick a number from the list.");
         }
     }
-    plantMenu();
+    PlantMenu();
 }
 
 // MENU
-void plantMenu()
+void PlantMenu()
 {
     while (true)
     {
@@ -168,21 +168,21 @@ void plantMenu()
             case "a":
                 Console.Clear();
                 Console.WriteLine("Showing all plants...");
-                displayPlants();
+                DisplayPlants();
                 continue;
             case "b":
                 Console.WriteLine("Post a plant to be adopted...");
-                postAPlant();
+                PostAPlant();
                 continue;
             case "c":
                 Console.WriteLine("Which plant do you want to adopt?");
-                adoptAPlant();
+                AdoptAPlant();
                 break;
             case "d":
-                delistPlant();
+                DelistPlant();
                 break;
             case "e":
-                plantOfTheDay();
+                PlantOfTheDay();
                 continue;
             case "exit":
                 Console.WriteLine("Terminating program...");
@@ -200,4 +200,4 @@ void plantMenu()
 // STARTUP GREETING AND PROMPT USER TO MAKE A SELECTION IN THE MENU.
 string greeting = "Welcome to Tion's Plant Shop!";
 Console.WriteLine(greeting);
-plantMenu();
+PlantMenu();
