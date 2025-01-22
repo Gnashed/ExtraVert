@@ -14,7 +14,10 @@ void plantOfTheDay()
 {
     Random randomIndex = new Random();
     int randomInteger = randomIndex.Next(1, plants.Count);
-    
+    while (plants[randomInteger].isSold == true)
+    {
+        randomInteger = randomIndex.Next(1, plants.Count);
+    }
     Console.WriteLine($"{plants[randomInteger].Species} in {plants[randomInteger].City} " +
                       $"{(plants[randomInteger].isSold ? "was sold":"is available")} for " +
                       $"${plants[randomInteger].AskingPrice} dollars.");
