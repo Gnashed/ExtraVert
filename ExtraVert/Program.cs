@@ -54,63 +54,31 @@ void postAPlant()
 // When the user choose a plant, change its Sold property to be true.
 void adoptAPlant()
 {
-    displayPlants();
-    Console.Write("Enter the number that corresponds to the plant you are wanting to adopt: ");
-
-    try
+    while (true)
     {
-        int userSelection = Convert.ToInt32(Console.ReadLine().Trim());
-        // Process user's selection
-        switch (userSelection)
+        displayPlants();
+        Console.Write("Enter the number that corresponds to the plant you are wanting to adopt: ");
+
+        try
         {
-            case 1:
-                plants[0].isSold = true;
-                Console.WriteLine($"{plants[0].Species} is now sold!");
-                plantMenu();
-                break;
-            case 2:
-                plants[1].isSold = true;
-                Console.WriteLine($"{plants[1].Species} is now sold!");
-                plantMenu();
-                break;
-            case 3:
-                plants[2].isSold = true;
-                Console.WriteLine($"{plants[2].Species} is now sold!");
-                plantMenu();
-                break;
-            case 4:
-                plants[3].isSold = true;
-                Console.WriteLine($"{plants[3].Species} is now sold!");
-                plantMenu();
-                break;
-            case 5:
-                plants[4].isSold = true;
-                Console.WriteLine($"{plants[4].Species} is now sold!");
-                plantMenu();
-                break;
-            case 6:
-                plants[5].isSold = true;
-                Console.WriteLine($"{plants[5].Species} is now sold!");
-                plantMenu();
-                break;
-            default:
-                Console.WriteLine("Please enter a valid number!");
-                adoptAPlant();
-                break;
+            int userSelection = Convert.ToInt32(Console.ReadLine().Trim());
+
+            if (userSelection < 1 || userSelection > plants.Count)
+            {
+                Console.WriteLine("The number is out of range. Please select a valid option.");
+                continue;
+            }
+
+            plants[userSelection - 1].isSold = true;
+            Console.WriteLine($"{plants[userSelection - 1].Species} is now sold!");
+            break;
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid input. Please try again.");
         }
     }
-    catch (FormatException)
-    {
-        Console.Clear();
-        Console.WriteLine("Invalid selection. Please try again.");
-        adoptAPlant();
-    }
-    catch (ArgumentOutOfRangeException)
-    {
-        Console.Clear();
-        Console.WriteLine("Invalid selection. Please try again.");
-        adoptAPlant();
-    }
+    plantMenu();
 }
 
 void delistPlant()
