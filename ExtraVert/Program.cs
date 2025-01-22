@@ -2,55 +2,11 @@
 
 List<Plant> plants = new List<Plant>()
 {
-    new Plant()
-    {
-        Species = "Sunflower",
-        LightNeeds = 4,
-        AskingPrice = 12.99M,
-        City = "Nashville",
-        ZipCode = 37211,
-        isSold = false
-    },
-    new Plant()
-    {
-        Species = "Roses",
-        LightNeeds = 3,
-        AskingPrice = 19.99M,
-        City = "Smyrna",
-        ZipCode = 37000,
-        isSold = false,
-        isRegulated = false,
-    },
-    new Plant()
-    {
-        Species = "Dandelion",
-        LightNeeds = 3,
-        AskingPrice = 6.99M,
-        City = "New York",
-        ZipCode = 10001,
-        isSold = false,
-        isRegulated = false
-    },
-    new Plant()
-    {
-        Species = "Aloe",
-        LightNeeds = 4,
-        AskingPrice = 15.99M,
-        City = "Tampa Bay",
-        ZipCode = 32000,
-        isSold = false,
-        isRegulated = false
-    },
-    new Plant()
-    {
-        Species = "Cannabis",
-        LightNeeds = 4,
-        AskingPrice = 45.00M,
-        City = "Detroit",
-        ZipCode = 48200,
-        isSold = false,
-        isRegulated = true
-    }
+    new Plant("Sunflower", 4, 12.99M, "Nashville", 37211, false),
+    new Plant("Roses", 3, 19.99M, "Smyrna", 37000, false),
+    new Plant("Dandelion", 3, 6.99M, "New York", 10001, false),
+    new Plant("Aloe",4,15.99M,"Tampa Bay",32000,false),
+    new Plant("Cannabis",4,45.00M,"Detroit",48200,false)
 };
 
 void displayPlants()

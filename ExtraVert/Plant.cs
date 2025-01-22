@@ -6,5 +6,22 @@ public class Plant
     public string City { get; set; }
     public int ZipCode { get; set; }
     public bool isSold { get; set; }
-    public bool isRegulated { get; set; }
+    
+    // Constructor
+    public Plant(
+        string species,
+        int lightNeeds,
+        decimal askingPrice,
+        string city,
+        int zipCode,
+        bool sold
+        )
+    {
+        Species = species;
+        LightNeeds = lightNeeds;
+        AskingPrice = askingPrice;
+        City = city;
+        ZipCode = zipCode;
+        isSold = sold;
+    }
 }
