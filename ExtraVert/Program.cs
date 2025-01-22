@@ -53,9 +53,19 @@ List<Plant> plants = new List<Plant>()
     }
 };
 
+void displayPlants()
+{
+    int counter = 0;
+    foreach (Plant plant in plants)
+    { 
+        Console.WriteLine($"{++counter}. {plant.Species} in {plant.City} {(plant.isSold ? "was sold":"is available")} for ${plant.AskingPrice} dollars.");
+    }
+}
+
 // MENU
 void plantMenu()
 {
+    Console.WriteLine();
     Console.WriteLine("Please choose one of the following options: ");
     Console.WriteLine("a: Display all plants.");
     Console.WriteLine("b: Post a plant to be adopted.");
@@ -69,18 +79,7 @@ void plantMenu()
     {
         case "a":
             Console.WriteLine("Showing all plants...");
-            foreach (Plant plant in plants)
-            { 
-                Console.WriteLine(plant.Species);
-                Console.WriteLine(plant.LightNeeds);
-                Console.WriteLine(plant.AskingPrice);
-                Console.WriteLine(plant.City);
-                Console.WriteLine(plant.ZipCode);
-                Console.WriteLine($"Sold out? {plant.isSold}");
-                Console.WriteLine($"Regulated? {plant.isRegulated}");
-                Console.WriteLine();
-                Console.WriteLine();
-            } 
+            displayPlants();
             plantMenu();
             break;
         case "b":
@@ -98,6 +97,7 @@ void plantMenu()
         default:
             Console.WriteLine("Invalid response. Please try again. ");
             Console.WriteLine();
+            Console.Clear();
             plantMenu();
             break;
     };
