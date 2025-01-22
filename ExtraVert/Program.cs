@@ -83,8 +83,7 @@ void adoptAPlant()
 
 void delistPlant()
 {
-    Plant chosenPlant = null;
-    while (chosenPlant == null)
+    while (true)
     {
         try
         {
@@ -95,18 +94,25 @@ void delistPlant()
                 Console.WriteLine($"{++counter}. {plant.Species}");
             }
             int response = Convert.ToInt32(Console.ReadLine());
-            chosenPlant = plants[response - 1];
-            plants.Remove(plants[response - 1]);
+
+            if (response < 1 || response > plants.Count)
+            {
+                Console.WriteLine("Invalid entry. Please try again.");
+                continue; // User can try again.
+            }
+            // If selection is valid, remove it from the list.
+            Plant chosenPlant = plants[response - 1];
+            plants.Remove(chosenPlant);
             Console.WriteLine("Removed the plant. Here is the updated list:");
             displayPlants();
-            plantMenu();
+            break; // Without this the loop is infinite.
         }
-        catch
+        catch (FormatException)
         {
             Console.WriteLine("Invalid selection. Please pick a number from the list.");
-            delistPlant();
         }
     }
+    plantMenu();
 }
 
 // MENU
