@@ -2,11 +2,11 @@
 
 List<Plant> plants = new List<Plant>()
 {
-    new Plant("Sunflower", 4, 12.99M, "Nashville", 37211, false),
-    new Plant("Roses", 3, 19.99M, "Smyrna", 37000, false),
-    new Plant("Dandelion", 3, 6.99M, "New York", 10001, false),
-    new Plant("Aloe",4,15.99M,"Tampa Bay",32000,false),
-    new Plant("Cannabis",4,45.00M,"Detroit",48200,false)
+    new Plant("Sunflower", 4, 12.99M, "Nashville", 37211, availableUntil: new DateTime(2025, 2, 12), sold: false),
+    new Plant("Roses", 3, 19.99M, "Smyrna", 37000, availableUntil: new DateTime(2025, 1, 31), sold: false),
+    new Plant("Dandelion", 3, 6.99M, "New York", 10001, availableUntil: new DateTime(2025, 2, 10), sold: false),
+    new Plant("Aloe",4,15.99M,"Tampa Bay",32000, availableUntil: new DateTime(2025, 3, 21), sold: false),
+    new Plant("Cannabis",4,45.00M,"Detroit",48200, availableUntil: new DateTime(2025, 3, 2), sold: false)
 };
 
 // For Showcasing Plant of the Day
@@ -26,10 +26,14 @@ void PlantOfTheDay()
 void DisplayPlants()
 {
     int counter = 0;
+    DateTime currentDate = DateTime.Today;
     foreach (Plant plant in plants)
-    { 
-        Console.WriteLine($"{++counter}. {plant.Species} in {plant.City} {(plant.IsSold ? "was sold":"is available")} " +
-                          $"for ${plant.AskingPrice} dollars.");
+    {
+        if (!plant.IsSold && currentDate < plant.AvailableUntil)
+        {
+            Console.WriteLine($"{++counter}. {plant.Species} in {plant.City} {(plant.IsSold ? "was sold":"is available")} " +
+                              $"for ${plant.AskingPrice} dollars. This post will expire on {plant.AvailableUntil}");
+        }
     }
 }
 
@@ -92,15 +96,45 @@ void PostAPlant()
         Console.Write("What's the zip code? ");
         if (int.TryParse(Console.ReadLine(), out zipCode) && zipCode is > 9999 and < 99999)
         {
+            Console.Clear();
             break;
         }
         // Else ...
+        Console.Clear();
         Console.WriteLine("Invalid input. Please enter a valid zip code. ");
     }
     
+    // For collecting the date that the user wants the post to expire on.
+    int year;
+    int month;
+    int day;
+    DateTime dateToExpire;
+
+    while (true)
+    {
+        Console.WriteLine("Enter the year: ");
+        if (int.TryParse(Console.ReadLine(), out year) && year is >= 2025)
+        {
+            Console.WriteLine("Enter the month: ");
+            if (int.TryParse(Console.ReadLine(), out month) && month is >= 1 and < 13)
+            {
+                Console.WriteLine("Enter the day: ");
+                if (int.TryParse(Console.ReadLine(), out day) && day is >= 1 and < 32)
+                {
+                    dateToExpire = new DateTime(year, month, day);
+                    Console.WriteLine($"This post will expire on {dateToExpire}.");
+                    break;
+                }
+                Console.WriteLine("Invalid input. Please try again with a number between 1 and 31.");
+            }
+            Console.WriteLine("Invalid input. Please try again with a number between 1 and 12.");
+        }
+        Console.WriteLine("Invalid input. Please try again with a year no earlier than 2025.");
+    }
+    
     // Process the user's inputs
-    plants.Add(new Plant(species, lightNeeds, askingPrice, city, zipCode, false));
-    Console.WriteLine("Plant added to the list! Here is the updated records:");
+    plants.Add(new Plant(species, lightNeeds, askingPrice, city, zipCode, dateToExpire, sold: false));
+    Console.WriteLine("Plant added to the list! Here are the updated records:");
     DisplayPlants();
 }
 

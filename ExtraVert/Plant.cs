@@ -6,6 +6,7 @@ public class Plant
     public string City { get; set; }
     public int ZipCode { get; set; }
     public bool IsSold { get; set; }
+    public DateTime AvailableUntil { get; set; }
     
     // Constructor
     public Plant(
@@ -14,6 +15,7 @@ public class Plant
         decimal askingPrice,
         string city,
         int zipCode,
+        DateTime availableUntil,
         bool sold
         )
     {
@@ -38,5 +40,6 @@ public class Plant
         City = city;
         ZipCode = zipCode;
         IsSold = sold;
+        AvailableUntil = availableUntil;
     }
 }
