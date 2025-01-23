@@ -168,6 +168,36 @@ void DelistPlant()
     PlantMenu();
 }
 
+void FilterList()
+{
+    int userLightingRequirements;
+    while (true)
+    {
+        Console.WriteLine("Enter a number to filter plants that requires up " +
+                          "to (but no more) lighting than the amount you specified: ");
+        if(int.TryParse(Console.ReadLine(), out userLightingRequirements) && userLightingRequirements is >= 1 and <= 5)
+        {
+            List<Plant> filteredPlants = new List<Plant>();
+            foreach (Plant plant in plants)
+            {
+                if (plant.LightNeeds <= userLightingRequirements)
+                {
+                    filteredPlants.Add(plant);
+                }
+            }
+            Console.WriteLine("Filtered plants: ");
+            foreach (Plant plantObj in filteredPlants)
+            {
+                Console.WriteLine($"\n{plantObj.Species} has a lighting need of {plantObj.LightNeeds} which is " +
+                                  $"within your lighting requirements. The asking price is {plantObj.AskingPrice}." +
+                                  $" The plant is from {plantObj.City} and {(plantObj.IsSold ? "sold out" : "is available.")}");
+            }
+            break;
+        }
+        Console.WriteLine("Invalid input. Please try again with a number between 1 and 5.");
+    }
+}
+
 // MENU
 void PlantMenu()
 {
@@ -180,7 +210,9 @@ void PlantMenu()
         Console.WriteLine("c: Adopt a plant today!");
         Console.WriteLine("d: De-list a plant.");
         Console.WriteLine("e: Showcase Plant of the Day.");
+        Console.WriteLine("f: Search inventory for plants that can grow in darker environments.");
         Console.WriteLine("exit: Exit the program.");
+        Console.WriteLine();
         string? response = Console.ReadLine()?.Trim();
 
         // PROCESS MENU RESPONSE
@@ -204,6 +236,9 @@ void PlantMenu()
                 break;
             case "e":
                 PlantOfTheDay();
+                continue;
+            case "f":
+                FilterList();
                 continue;
             case "exit":
                 Console.WriteLine("Terminating program...");
