@@ -14,12 +14,12 @@ void PlantOfTheDay()
 {
     Random randomIndex = new Random();
     int randomInteger = randomIndex.Next(1, plants.Count);
-    while (plants[randomInteger].isSold == true)
+    while (plants[randomInteger].IsSold)
     {
         randomInteger = randomIndex.Next(1, plants.Count);
     }
     Console.WriteLine($"{plants[randomInteger].Species} in {plants[randomInteger].City} " +
-                      $"{(plants[randomInteger].isSold ? "was sold":"is available")} for " +
+                      $"{(plants[randomInteger].IsSold ? "was sold":"is available")} for " +
                       $"${plants[randomInteger].AskingPrice} dollars.");
 }
 
@@ -28,7 +28,7 @@ void DisplayPlants()
     int counter = 0;
     foreach (Plant plant in plants)
     { 
-        Console.WriteLine($"{++counter}. {plant.Species} in {plant.City} {(plant.isSold ? "was sold":"is available")} " +
+        Console.WriteLine($"{++counter}. {plant.Species} in {plant.City} {(plant.IsSold ? "was sold":"is available")} " +
                           $"for ${plant.AskingPrice} dollars.");
     }
 }
@@ -37,8 +37,19 @@ void PostAPlant()
 {   
     Console.WriteLine("Please fill out the plant details below.");
     
-    Console.Write("What's the plant name?: ");
-    string? species = Console.ReadLine();
+    string? species;
+    while (true)
+    {
+        Console.Write("What's the plant name?: ");
+        species = Console.ReadLine();
+        
+        if (string.IsNullOrEmpty(species))
+        {
+            Console.WriteLine("You must enter a name for the species. Try again");
+            continue;
+        }
+        break;
+    }
     
     int lightNeeds;
     while (true)
@@ -61,9 +72,19 @@ void PostAPlant()
         }
         Console.WriteLine("Invalid input. Please try again by entering a dollar amount. Ex. 12.99: ");
     }
-    
-    Console.Write("What city are you located in? ");
-    string? city = Console.ReadLine();
+
+    string? city;
+    while (true)
+    {
+        Console.Write("What city are you located in? ");
+        city = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(city))
+        {
+            Console.WriteLine("You must enter a name for the city. Try again.");
+            continue;
+        }
+        break;
+    }
 
     int zipCode;
     while (true)
@@ -93,7 +114,7 @@ void AdoptAPlant()
 
         try
         {
-            int userSelection = Convert.ToInt32(Console.ReadLine().Trim());
+            int userSelection = Convert.ToInt32(Console.ReadLine()?.Trim());
 
             if (userSelection < 1 || userSelection > plants.Count)
             {
@@ -101,7 +122,7 @@ void AdoptAPlant()
                 continue;
             }
 
-            plants[userSelection - 1].isSold = true;
+            plants[userSelection - 1].IsSold = true;
             Console.WriteLine($"{plants[userSelection - 1].Species} is now sold!");
             break;
         }
@@ -160,7 +181,7 @@ void PlantMenu()
         Console.WriteLine("d: De-list a plant.");
         Console.WriteLine("e: Showcase Plant of the Day.");
         Console.WriteLine("exit: Exit the program.");
-        string response = Console.ReadLine().Trim();
+        string? response = Console.ReadLine()?.Trim();
 
         // PROCESS MENU RESPONSE
         switch (response?.ToLower().Trim())
