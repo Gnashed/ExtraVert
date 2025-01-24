@@ -121,9 +121,17 @@ void PostAPlant()
                 Console.WriteLine("Enter the day: ");
                 if (int.TryParse(Console.ReadLine(), out day) && day is >= 1 and < 32)
                 {
-                    dateToExpire = new DateTime(year, month, day);
-                    Console.WriteLine($"This post will expire on {dateToExpire}.");
-                    break;
+                    try
+                    {
+                        dateToExpire = new DateTime(year, month, day);
+                        Console.WriteLine($"This post will expire on {dateToExpire}.");
+                        break;
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        Console.WriteLine("Invalid input. Please try again.");
+                    }
+                    
                 }
                 Console.WriteLine("Invalid input. Please try again with a number between 1 and 31.");
             }
