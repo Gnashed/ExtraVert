@@ -246,7 +246,26 @@ void PlantsStatistics()
     
     double averageLightNeeds = plants.Average(p => p.LightNeeds);
     Console.WriteLine($"Average lighting needs for the plants available: {averageLightNeeds}");
+
+    double percentageOfPlantsAdopted;
+    int isSoldTally = 0;
+    int isAvailableTally = 0;
+    foreach (Plant plant in plants)
+    {
+        if (plant.IsSold)
+        {
+            isSoldTally++;
+        }
+
+        if (!plant.IsSold)
+        {
+            isAvailableTally++;
+        }
+    }
     
+    // Calculate the average.
+    percentageOfPlantsAdopted = ((double)isSoldTally / numberOfAvailablePlants) * 100;
+    Console.WriteLine($"Percentage of plants adopted to {percentageOfPlantsAdopted}%.");
 }
 
 // MENU
