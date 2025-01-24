@@ -232,6 +232,19 @@ void FilterList()
     }
 }
 
+void PlantsStatistics()
+{
+    Plant lowestAskingPricePlant = plants.OrderBy(p => p.AskingPrice).First();
+    Console.WriteLine($"Lowest plant's price is {lowestAskingPricePlant.Species} from {lowestAskingPricePlant.City} with" +
+                      $" an asking price of ${lowestAskingPricePlant.AskingPrice}");
+    
+    int numberOfAvailablePlants = plants.OrderBy(p => p.IsSold == false).Count();
+    Console.WriteLine($"Number of available plants: {numberOfAvailablePlants}");
+
+    Plant plantWithHighestLightNeeds = plants.OrderBy(p => p.LightNeeds).Last();
+    Console.WriteLine($"Name of plant with highest light needs: {plantWithHighestLightNeeds.Species}.");
+}
+
 // MENU
 void PlantMenu()
 {
@@ -245,6 +258,7 @@ void PlantMenu()
         Console.WriteLine("d: De-list a plant.");
         Console.WriteLine("e: Showcase Plant of the Day.");
         Console.WriteLine("f: Search inventory for plants that can grow in darker environments.");
+        Console.WriteLine("g: Statistics on our current plant listings.");
         Console.WriteLine("exit: Exit the program.");
         Console.WriteLine();
         string? response = Console.ReadLine()?.Trim();
@@ -273,6 +287,10 @@ void PlantMenu()
                 continue;
             case "f":
                 FilterList();
+                continue;
+            case "g":
+                Console.WriteLine("Loading stats...");
+                PlantsStatistics();
                 continue;
             case "exit":
                 Console.WriteLine("Terminating program...");
