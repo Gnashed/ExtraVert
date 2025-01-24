@@ -235,14 +235,18 @@ void FilterList()
 void PlantsStatistics()
 {
     Plant lowestAskingPricePlant = plants.OrderBy(p => p.AskingPrice).First();
-    Console.WriteLine($"Lowest plant's price is {lowestAskingPricePlant.Species} from {lowestAskingPricePlant.City} with" +
-                      $" an asking price of ${lowestAskingPricePlant.AskingPrice}");
+    Console.WriteLine($"Lowest plant's price is {lowestAskingPricePlant.Species} from {lowestAskingPricePlant.City} " +
+                      $"with an asking price of ${lowestAskingPricePlant.AskingPrice}");
     
     int numberOfAvailablePlants = plants.OrderBy(p => p.IsSold == false).Count();
     Console.WriteLine($"Number of available plants: {numberOfAvailablePlants}");
 
     Plant plantWithHighestLightNeeds = plants.OrderBy(p => p.LightNeeds).Last();
     Console.WriteLine($"Name of plant with highest light needs: {plantWithHighestLightNeeds.Species}.");
+    
+    double averageLightNeeds = plants.Average(p => p.LightNeeds);
+    Console.WriteLine($"Average lighting needs for the plants available: {averageLightNeeds}");
+    
 }
 
 // MENU
